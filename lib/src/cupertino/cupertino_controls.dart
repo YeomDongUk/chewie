@@ -139,7 +139,7 @@ class _CupertinoControlsState extends State<CupertinoControls>
   @override
   void didChangeDependencies() {
     final _oldController = _chewieController;
-    _chewieController = ChewieController.of(context);
+    _chewieController = Provider.of<ChewieController>(context);
     controller = chewieController.videoPlayerController;
 
     if (_oldController != chewieController) {

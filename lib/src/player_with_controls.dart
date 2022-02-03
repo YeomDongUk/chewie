@@ -10,7 +10,8 @@ class PlayerWithControls extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ChewieController chewieController = ChewieController.of(context);
+    final ChewieController chewieController =
+        Provider.of<ChewieController>(context);
 
     double _calculateAspectRatio(BuildContext context) {
       final size = MediaQuery.of(context).size;
@@ -35,7 +36,8 @@ class PlayerWithControls extends StatelessWidget {
     ) {
       return Stack(
         children: <Widget>[
-          if(chewieController.placeholder!=null) chewieController.placeholder!,
+          if (chewieController.placeholder != null)
+            chewieController.placeholder!,
           Center(
             child: AspectRatio(
               aspectRatio: chewieController.aspectRatio ??
@@ -43,7 +45,7 @@ class PlayerWithControls extends StatelessWidget {
               child: VideoPlayer(chewieController.videoPlayerController),
             ),
           ),
-          if(chewieController.overlay!=null) chewieController.overlay!,
+          if (chewieController.overlay != null) chewieController.overlay!,
           if (Theme.of(context).platform != TargetPlatform.iOS)
             Consumer<PlayerNotifier>(
               builder: (
