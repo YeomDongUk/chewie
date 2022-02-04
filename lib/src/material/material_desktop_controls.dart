@@ -215,14 +215,14 @@ class _MaterialDesktopControlsState extends State<MaterialDesktopControls>
       return Container();
     }
     final currentSubtitle = subtitles.getByPosition(_subtitlesPosition);
-    if (currentSubtitle.isEmpty) {
+    if (currentSubtitle == null) {
       return Container();
     }
 
     if (chewieController.subtitleBuilder != null) {
       return chewieController.subtitleBuilder!(
         context,
-        currentSubtitle.first!.text,
+        currentSubtitle.text,
       );
     }
 
@@ -235,7 +235,7 @@ class _MaterialDesktopControlsState extends State<MaterialDesktopControls>
           borderRadius: BorderRadius.circular(10.0),
         ),
         child: Text(
-          currentSubtitle.first!.text.toString(),
+          currentSubtitle.text.toString(),
           style: const TextStyle(
             fontSize: 18,
           ),

@@ -1,17 +1,17 @@
+import 'package:collection/collection.dart';
+
 class Subtitles {
   Subtitles(this.subtitle);
 
-  final List<Subtitle?> subtitle;
+  final List<Subtitle> subtitle;
 
   bool get isEmpty => subtitle.isEmpty;
 
   bool get isNotEmpty => !isEmpty;
 
-  List<Subtitle?> getByPosition(Duration position) {
-    final found = subtitle.where((item) {
-      if (item != null) return position >= item.start && position <= item.end;
-      return false;
-    }).toList();
+  Subtitle? getByPosition(Duration position) {
+    final found = subtitle.firstWhereOrNull(
+        (item) => position >= item.start && position <= item.end);
 
     return found;
   }
@@ -29,7 +29,7 @@ class Subtitle {
     int? index,
     Duration? start,
     Duration? end,
-    dynamic text,
+    String? text,
   }) {
     return Subtitle(
       index: index ?? this.index,
@@ -42,7 +42,7 @@ class Subtitle {
   final int index;
   final Duration start;
   final Duration end;
-  final dynamic text;
+  final String text;
 
   @override
   String toString() {
@@ -53,11 +53,7 @@ class Subtitle {
   bool operator ==(Object o) {
     if (identical(this, o)) return true;
 
-    return o is Subtitle &&
-        o.index == index &&
-        o.start == start &&
-        o.end == end &&
-        o.text == text;
+    return o is Subtitle && o.start == start && o.end == end && o.text == text;
   }
 
   @override

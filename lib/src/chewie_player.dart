@@ -277,10 +277,12 @@ class ChewieController extends ChangeNotifier {
     this.systemOverlaysAfterFullScreen = SystemUiOverlay.values,
     this.deviceOrientationsAfterFullScreen = DeviceOrientation.values,
     this.routePageBuilder,
+    bool showSubtitle = true,
   }) : assert(
           playbackSpeeds.every((speed) => speed > 0),
           'The playbackSpeeds values must all be greater than 0',
         ) {
+    _showSubtitle = showSubtitle;
     _initialize();
   }
 
@@ -506,6 +508,10 @@ class ChewieController extends ChangeNotifier {
 
   bool get isPlaying => videoPlayerController.value.isPlaying;
 
+  late bool _showSubtitle;
+
+  bool get showSubtitle => _showSubtitle;
+
   Future _initialize() async {
     await videoPlayerController.setLooping(looping);
 
@@ -581,6 +587,8 @@ class ChewieController extends ChangeNotifier {
   void setSubtitle(List<Subtitle> newSubtitle) {
     subtitle = Subtitles(newSubtitle);
   }
+
+  void toggleSubtitle() => _showSubtitle = !_showSubtitle;
 }
 
 class _ChewieControllerProvider extends StatelessWidget {

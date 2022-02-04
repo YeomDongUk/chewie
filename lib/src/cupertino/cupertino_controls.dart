@@ -158,14 +158,14 @@ class _CupertinoControlsState extends State<CupertinoControls>
       return Container();
     }
     final currentSubtitle = subtitles.getByPosition(_subtitlesPosition!);
-    if (currentSubtitle.isEmpty) {
+    if (currentSubtitle == null) {
       return Container();
     }
 
     if (chewieController.subtitleBuilder != null) {
       return chewieController.subtitleBuilder!(
         context,
-        currentSubtitle.first!.text,
+        currentSubtitle.text,
       );
     }
 
@@ -178,7 +178,7 @@ class _CupertinoControlsState extends State<CupertinoControls>
           borderRadius: BorderRadius.circular(10.0),
         ),
         child: Text(
-          currentSubtitle.first!.text.toString(),
+          currentSubtitle.text,
           style: const TextStyle(
             fontSize: 18,
           ),
