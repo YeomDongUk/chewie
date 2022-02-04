@@ -27,9 +27,7 @@ class VideoProgressBar extends StatefulWidget {
   final bool drawShadow;
 
   @override
-  _VideoProgressBarState createState() {
-    return _VideoProgressBarState();
-  }
+  State<StatefulWidget> createState() => _VideoProgressBarState();
 }
 
 class _VideoProgressBarState extends State<VideoProgressBar> {
