@@ -13,6 +13,7 @@ class VideoProgressBar extends StatefulWidget {
     required this.barHeight,
     required this.handleHeight,
     required this.drawShadow,
+    this.points = const [],
   })  : colors = colors ?? ChewieProgressColors(),
         super(key: key);
 
@@ -21,7 +22,7 @@ class VideoProgressBar extends StatefulWidget {
   final Function()? onDragStart;
   final Function()? onDragEnd;
   final Function()? onDragUpdate;
-
+  final List<double> points;
   final double barHeight;
   final double handleHeight;
   final bool drawShadow;
@@ -107,6 +108,7 @@ class _VideoProgressBarState extends State<VideoProgressBar> {
               barHeight: widget.barHeight,
               handleHeight: widget.handleHeight,
               drawShadow: widget.drawShadow,
+              points: widget.points,
             ),
           ),
         ),
@@ -122,6 +124,7 @@ class _ProgressBarPainter extends CustomPainter {
     required this.barHeight,
     required this.handleHeight,
     required this.drawShadow,
+    this.points = const [],
   });
 
   VideoPlayerValue value;
@@ -130,7 +133,7 @@ class _ProgressBarPainter extends CustomPainter {
   final double barHeight;
   final double handleHeight;
   final bool drawShadow;
-
+  final List<double> points;
   @override
   bool shouldRepaint(CustomPainter painter) {
     return true;
@@ -171,6 +174,7 @@ class _ProgressBarPainter extends CustomPainter {
         colors.bufferedPaint,
       );
     }
+
     canvas.drawRRect(
       RRect.fromRectAndRadius(
         Rect.fromPoints(
@@ -192,6 +196,16 @@ class _ProgressBarPainter extends CustomPainter {
         );
 
       canvas.drawShadow(shadowPath, Colors.black, 0.2, false);
+    }
+
+    if (points.every((element) => element.isFinite)) {
+      for (final point in points) {
+        canvas.drawRect(
+          Rect.fromPoints(Offset(point * size.width, baseOffset),
+              Offset(size.width * point + 3, baseOffset + barHeight)),
+          Paint()..color = const Color(0xFFFFAB98),
+        );
+      }
     }
 
     canvas.drawCircle(
